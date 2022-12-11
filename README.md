@@ -2,4 +2,4 @@
 Create, Retrieve, Update, and Delete Data
 
 #### Demo
-### https://ahmed-elzaky.github.io/CRUD-system/
+### https://ahmed-elzaky.github.io/crud-system/
