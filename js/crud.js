@@ -13,6 +13,10 @@ if (localStorage.getItem('productData') != null) {
 }
 displayProducts(productList);
 
+let addBtn = document.getElementById('addProduct');
+// addBtn.onclick = addProduct; // onclick is a property not a method
+addBtn.addEventListener("click", addProduct);
+
 function addProduct() {
   let product = {
     pName: proName.value,
@@ -22,9 +26,8 @@ function addProduct() {
   };
 
   // validate not empty inputs
-  if(proName.value != '' & category.value != '' & (price.value != '' || price.value != 0)){
+  if (proName.value != '' & category.value != '' & (price.value != '' || price.value != 0)) {
     productList.push(product)
-    
   }
 
   // JSON.stringify(productList)  // array to string
@@ -38,7 +41,7 @@ function addProduct() {
 // let trs = "";
 function displayProducts() {
   let trs = "";
-  for(let i = 0; i < productList.length; i++) {
+  for (let i = 0; i < productList.length; i++) {
     trs +=
       `<tr>
       <td>${i + 1}</td>
@@ -47,10 +50,10 @@ function displayProducts() {
       <td>${productList[i].price}</td>
       <td>${productList[i].desc}</td>
       <td>
-      <button onclick="" class="btn btn-warning" id="UpdateProduct">Update</button>
+      <button onclick="" class="btn btn-warning" id="updateProduct">Update</button>
       </td>
       <td>
-    <button onclick="deleteProduct(${i});" class="btn btn-danger" id="DeleteProduct">Delete</button>
+    <button onclick="deleteProduct(${i});" class="btn btn-danger" id="deleteProduct">Delete</button>
       </td>
       </tr>
       `;
@@ -65,6 +68,11 @@ function clearFields() {
   desc.value = '';
 }
 
+// let deleteItem = document.getElementById('deleteProduct');
+// deleteItem.addEventListener("click", function(){
+
+// })
+
 function deleteProduct(index) {
   productList.splice(index, 1);
   localStorage.setItem('productData', JSON.stringify(productList));
@@ -73,14 +81,14 @@ function deleteProduct(index) {
 
 
 let searchInput = document.getElementById('searchInput');
-// searchInput.style.backgroundColor = 'red';
+searchInput.addEventListener("keyup", search);
 
 function search() {
   let str = "";
-  for(let i = 0; i < productList.length; i++){
-    if(productList[i].pName.toLowerCase().includes(searchInput.value.toLowerCase())){
-    str +=
-    `<tr>
+  for (let i = 0; i < productList.length; i++) {
+    if (productList[i].pName.toLowerCase().includes(searchInput.value.toLowerCase())) {
+      str +=
+        `<tr>
       <td>${i + 1}</td>
       <td>
       ${productList[i].pName.toLowerCase().replace(searchInput.value.toLowerCase(), `<span style="background-color: #ffc107;">${searchInput.value}</span>`)}
@@ -100,3 +108,4 @@ function search() {
   }
   document.getElementById('tbody').innerHTML = str;
 }
+
