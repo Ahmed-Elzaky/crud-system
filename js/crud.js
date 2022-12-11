@@ -13,9 +13,9 @@ if (localStorage.getItem('productData') != null) {
 }
 displayProducts(productList);
 
-let addBtn = document.getElementById('addProduct');
-// addBtn.onclick = addProduct; // onclick is a property not a method
-addBtn.addEventListener("click", addProduct);
+let addBtn = document.getElementById('addBtn');
+addBtn.onclick = addProduct; // onclick is a property not a method
+// addBtn.addEventListener("click", addProduct);
 
 function addProduct() {
   let product = {
@@ -35,7 +35,7 @@ function addProduct() {
   localStorage.setItem('productData', JSON.stringify(productList)); // update or add key and it's value
 
   displayProducts();
-  clearFields();
+  clearForm();
 }
 
 // let trs = "";
@@ -50,10 +50,10 @@ function displayProducts() {
       <td>${productList[i].price}</td>
       <td>${productList[i].desc}</td>
       <td>
-      <button onclick="" class="btn btn-warning" id="updateProduct">Update</button>
+      <button onclick="updateProduct(${i});" class="btn btn-warning btn-sm" id="updateBtn">Update</button>
       </td>
       <td>
-    <button onclick="deleteProduct(${i});" class="btn btn-danger" id="deleteProduct">Delete</button>
+    <button onclick="deleteProduct(${i});" class="btn btn-danger btn-sm" id="deleteBtn">Delete</button>
       </td>
       </tr>
       `;
@@ -61,17 +61,12 @@ function displayProducts() {
   document.getElementById('tbody').innerHTML = trs;
 }
 
-function clearFields() {
+function clearForm() {
   proName.value = '';
   category.value = '';
   price.value = '';
   desc.value = '';
 }
-
-// let deleteItem = document.getElementById('deleteProduct');
-// deleteItem.addEventListener("click", function(){
-
-// })
 
 function deleteProduct(index) {
   productList.splice(index, 1);
@@ -97,10 +92,10 @@ function search() {
       <td>${productList[i].price}</td>
       <td>${productList[i].desc}</td>
       <td>
-      <button onclick="" class="btn btn-warning" id="UpdateProduct">Update</button>
+      <button onclick="updateProduct(${i});" class="btn btn-warning btn-sm" id="updateBtn">Update</button>
       </td>
       <td>
-    <button onclick="deleteProduct(${i});" class="btn btn-danger" id="DeleteProduct">Delete</button>
+    <button onclick="deleteProduct(${i});" class="btn btn-danger btn-sm" id="deleteBtn">Delete</button>
       </td>
       </tr>
       `;
@@ -109,3 +104,33 @@ function search() {
   document.getElementById('tbody').innerHTML = str;
 }
 
+
+let updateBtn = document.getElementById('updateBtn');
+
+function updateProduct(index) {
+  proName.value = productList[index].pName;
+  category.value = productList[index].category;
+  price.value = productList[index].price;
+  desc.value = productList[index].desc;
+
+  addBtn.textContent = 'Update Product';
+  addBtn.classList.replace('btn-secondary', 'btn-warning');
+  
+  addBtn.onclick = function () {
+    productList[index].pName = proName.value;
+    productList[index].category = category.value;
+    productList[index].price = price.value;
+    productList[index].desc = desc.value;
+    
+    localStorage.setItem('productData', JSON.stringify(productList)); // update or add key and it's value
+    displayProducts();
+    
+    addBtn.textContent = 'Add Product';
+    addBtn.classList.replace('btn-warning', 'btn-secondary');
+
+    clearForm();
+
+  }
+
+
+}
