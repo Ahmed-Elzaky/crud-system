@@ -3,6 +3,8 @@ let category = document.getElementById('category');
 let price = document.getElementById('price');
 let desc = document.getElementById('description');
 
+desc.classList.add();
+
 // productList = localStorage.getItem('productData'); // string
 let productList = [];
 
@@ -18,13 +20,19 @@ function addProduct() {
     price: price.value,
     desc: desc.value
   };
-  productList.push(product)
+
+  // validate not empty inputs
+  if(proName.value != '' & category.value != '' & (price.value != '' || price.value != 0)){
+    productList.push(product)
+    
+  }
+
   // JSON.stringify(productList)  // array to string
   // JSON // is array of objects
   localStorage.setItem('productData', JSON.stringify(productList)); // update or add key and it's value
 
   displayProducts();
-  // emptyFields();
+  clearFields();
 }
 
 // let trs = "";
@@ -50,7 +58,7 @@ function displayProducts() {
   document.getElementById('tbody').innerHTML = trs;
 }
 
-function emptyFields() {
+function clearFields() {
   proName.value = '';
   category.value = '';
   price.value = '';
