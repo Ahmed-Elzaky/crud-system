@@ -1,0 +1,111 @@
+:root {
+  --transition: 0.5s;
+}
+
+
+html {
+  /* position: relative; */
+}
+
+body {
+  /* transition: var(--transition); */
+}
+
+#toggle {
+  width: 40px;
+  height: 20px;
+  background-color: #fff;
+  position: absolute;
+  top: 15px;
+  right: 45px;
+  border: 2px solid #fff;
+  border-radius: 240px; /* 50rem = 50 x 16 */
+  transition: var(--transition);
+}
+
+#toggle #slider {
+  width: 16px;
+  height: 16px;
+  background-color: #212529;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: var(--transition);
+}
+
+#toggle #slider.right {
+  left: calc(100% - 16px);
+}
+
+
+.form-control-dark {
+  display: block;
+  width: 100%;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #fff;
+  background-color: #212529;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: .375rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.form-control-dark:focus {
+
+  /* background-color: #fff; */
+  border-color: #86b7fe;
+  caret-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 .25rem rgba(13,110,253,.25);
+}
+
+.layer {
+  /* height: 100vh;
+  width: 100%;
+  background-color: red; */
+}
+
+#updateForm {
+  position: fixed;
+  top: 10vh;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: auto;
+  /* height: 100vh; */
+  width: 50%;
+}
+
+#closeBtn {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  cursor: pointer;
+  /* font-size: 18px; */
+}
+
+#closeBtn:hover {
+  top: 14px;
+}
+
+/* #done {
+  animation: disappear 7s;
+  color: #198754;
+}
+
+@keyframes disappear {
+  0%,
+  100% {
+    color: #198754;
+  }
+  
+  50% {
+    color: #f8f9fa;
+  }
+} */

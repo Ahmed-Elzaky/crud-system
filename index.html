@@ -15,6 +15,13 @@
 
 
 <body>
+
+<!-- Start Dark Mode Toggle -->
+<div id="toggle" class="bg-dark border-dark">
+  <div id="slider" class="bg-light"></div>
+</div>
+<!-- End Dark Mode Toggle -->
+
 <!-- Start CRUD Form -->
 <div class="container m-auto">
 <div class="border my-5 p-5 rounded shadow">
@@ -48,8 +55,8 @@
 
 <!-- Start Data Table -->
 <div class="container">
-<table class="table table-striped shadow text-center">
-  <thead class="table-light">
+<table class="table table-striped shadow text-center table-light">
+  <thead class="">
       <th>ID</th>
       <th>Name</th>
       <th>Category</th>
@@ -63,9 +70,35 @@
   </table>
 </div>
   <!-- Start Data Table -->
+
+
+  <!-- Start Update Form -->
+<!-- <div class="container m-auto layer"> -->
+  <div class="border my-5 p-5 rounded shadow bg-light d-none" id="updateForm">
+    <div class="fw-semibold fs-5" id="closeBtn" title="Close">X</div>
+    <h1 class="mb-3">Update Item</h1>
+      <div class="row mb-3">
+        <label class="mb-2" for="">Product Name: <span class="text-danger">*</span></label>
+        <input type="text" id="upName" class="form-control">
+      </div>
+      <div class="row mb-3">
+        <label class="mb-2" for="">Product Category: <span class="text-danger">*</span></label>
+        <input type="text" id="upCategory" class="form-control">
+      </div>
+      <div class="row mb-3">
+        <label class="mb-2" for="">Product Price: <span class="text-danger">*</span></label>
+        <input type="number" id="upPrice" class="form-control">
+      </div>
+      <div class="row mb-3">
+        <label class="mb-2" for="">Product Description:</label>
+        <textarea class="form-control" id="upDescription" style="resize: none;"></textarea>
+      </div>
+      <button class="btn btn-warning m-auto d-block mt-5" id="updateProBtn">Update Product</button>
+      <!-- <div id="done" class="m-auto text-center mt-3 fw-semibold">Done!</div> -->
+    </div>
+  <!-- </div> -->
+    <!-- Start Update Form -->
   
-
-
   <script src="js/bootstrap.min.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/jquery-3.6.1.min.js"></script>
