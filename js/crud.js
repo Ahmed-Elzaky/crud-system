@@ -26,9 +26,9 @@ function addProduct() {
   };
 
   // validate not empty inputs
-  // if (proName.value != '' & category.value != '' & (price.value != '' || price.value != 0)) {
+  if (proName.value != '' & category.value != '' & (price.value != '' || price.value != 0)) {
   productList.push(product)
-  // }
+  }
 
   // JSON.stringify(productList)  // array to string
   // JSON // is array of objects
@@ -149,14 +149,18 @@ function updateProductFloat(index) {
   upPrice.value = productList[index].price;
   upDesc.value = productList[index].desc;
 
+
   updateProBtn.onclick = function () {
     productList[index].pName = upName.value;
     productList[index].category = upCategory.value;
     productList[index].price = upPrice.value;
     productList[index].desc = upDesc.value;
-
+      // validate not empty inputs
+  if (upName.value != '' & upCategory.value != '' & (upPrice.value != '' || upPrice.value != 0)) {
     localStorage.setItem('productData', JSON.stringify(productList)); // update or add key and it's value
     displayProducts();
+    }
+
   }
 
   closeBtn.onclick = function () {
@@ -165,39 +169,38 @@ function updateProductFloat(index) {
 }
 // End Update Form
 
+
+// Multiple Toggle
 var superToggle = function (element, class0, class1) {
   element.classList.toggle(class0);
   element.classList.toggle(class1);
 }
 
+// Start Dark Mode
 
 let darkLight = document.getElementById('toggle');
 let slider = document.getElementById('slider');
+let theBody = document.body;
+let inputsDark = document.getElementsByTagName('input');
+let textAreas = document.getElementsByTagName('textarea');
+let theTable = document.querySelector('.table');
+let updateForm = document.getElementById('updateForm');
+
 
 darkLight.addEventListener("click", function () {
-  slider.classList.toggle('bg-light');
-  darkLight.classList.toggle('bg-dark');
-  darkLight.classList.toggle('border-dark');
-  document.body.classList.toggle('bg-dark');
-  document.body.classList.toggle('text-light');
-  slider.classList.toggle('right');
-  document.querySelector('.table').classList.toggle('table-light');
-  document.querySelector('.table').classList.toggle('table-dark');
-  // document.querySelectorALL('input').classList.replace('form-control', 'form-control-dark');
-  let inputsDark = document.getElementsByTagName('input');
+  superToggle(slider, 'bg-light', 'right');
+  superToggle(darkLight, 'bg-dark', 'border-dark');
+  superToggle(theBody, 'bg-dark', 'text-light');
+  superToggle(theTable, 'table-light', 'table-dark');
+  superToggle(updateForm, 'bg-light', 'bg-dark');
+  
   for (let i = 0; i < inputsDark.length; i++) {
-    // inputsDark[i].classList.toggle('form-control');
-    // inputsDark[i].classList.toggle('form-control-dark');
     superToggle(inputsDark[i], 'form-control', 'form-control-dark');
   }
 
-  let textAreas = document.getElementsByTagName('textarea');
   for (let i = 0; i < textAreas.length; i++) {
     superToggle(textAreas[i], 'form-control', 'form-control-dark');
   }
-
-  document.getElementById('updateForm').classList.toggle('bg-light');
-  document.getElementById('updateForm').classList.toggle('bg-dark');
-
-
+  
 });
+// End Dark Mode
