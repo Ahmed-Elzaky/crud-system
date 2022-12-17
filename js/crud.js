@@ -18,24 +18,27 @@ addBtn.onclick = addProduct; // onclick is a property not a method
 // addBtn.addEventListener("click", addProduct);
 
 function addProduct() {
-  let product = {
-    pName: proName.value,
-    category: category.value,
-    price: price.value,
-    desc: desc.value
-  };
+  // if (validateProName() && validateProCategory() && validateProPrice()) {
+  if (
+    validateInput(proName, nameRegex, nameAlert) &&
+    validateInput(category, categoryRegex, categoryAlert) &&
+    validateInput(price, priceRegex, priceAlert)) {
+    let product = {
+      pName: proName.value,
+      category: category.value,
+      price: price.value,
+      desc: desc.value
+    };
 
-  // validate not empty inputs
-  if (proName.value != '' & category.value != '' & (price.value != '' || price.value != 0)) {
-  productList.push(product)
+    productList.push(product)
+
+    // JSON.stringify(productList)  // array to string
+    // JSON // is array of objects
+    localStorage.setItem('productData', JSON.stringify(productList)); // update or add key and it's value
+
+    displayProducts();
+    // clearForm();
   }
-
-  // JSON.stringify(productList)  // array to string
-  // JSON // is array of objects
-  localStorage.setItem('productData', JSON.stringify(productList)); // update or add key and it's value
-
-  displayProducts();
-  clearForm();
 }
 
 // let trs = "";
@@ -133,6 +136,143 @@ function search() {
 // }
 
 
+
+
+// Validation
+// let nameAlert = document.getElementById('nameAlert');
+// function validateProName() {
+//   let nameRegex = /^[A-Z][a-z 0-9]{3,15}$/
+//   let nameValue = proName.value;
+
+//   if (nameRegex.test(nameValue)) {
+//     proName.classList.remove('is-invalid');
+//     proName.classList.add('is-valid');
+//     nameAlert.classList.add('d-none');
+//     return true;
+//   }
+//   else {
+
+//     proName.classList.remove('is-valid');
+//     proName.classList.add('is-invalid');
+//     nameAlert.classList.remove('d-none');
+//     return false
+//   }
+// }
+// proName.addEventListener("keyup", validateProName);
+
+
+// let categoryAlert = document.getElementById('categoryAlert');
+// function validateProCategory() {
+//   let categoryRegex = /^[A-Z][a-z 0-9]{2,10}$/
+//   let categoryValue = category.value;
+
+//   if (categoryRegex.test(categoryValue)) {
+//     category.classList.remove('is-invalid');
+//     category.classList.add('is-valid');
+//     categoryAlert.classList.add('d-none');
+//     return true;
+
+//   }
+//   else {
+//     category.classList.remove('is-valid');
+//     category.classList.add('is-invalid');
+//     categoryAlert.classList.remove('d-none');
+//     return false;
+
+//   }
+// }
+// category.addEventListener("keyup", validateProCategory);
+
+
+// let priceAlert = document.getElementById('priceAlert');
+// function validateProPrice() {
+//   let priceRegex = /[0-9]/;
+//   let priceValue = price.value;
+
+//   if (priceRegex.test(priceValue)) {
+//     price.classList.remove('is-invalid');
+//     price.classList.add('is-valid');
+//     priceAlert.classList.add('d-none');
+//     return true;
+
+//   }
+//   else {
+//     price.classList.remove('is-valid');
+//     price.classList.add('is-invalid');
+//     priceAlert.classList.remove('d-none');
+//     return false;
+
+//   }
+
+// }
+// price.addEventListener("keyup", validateProPrice);
+
+
+
+// Generic Validation Finish later
+// function validateInput(input, regex, alert) {
+//   input.addEventListener("keyup", function(){
+//     if (regex.test(input.value)) {
+//       input.classList.remove('is-invalid');
+//       input.classList.add('is-valid');
+//       alert.classList.add('d-none');
+//       return true;
+//     }
+//     else {
+//       input.classList.remove('is-valid');
+//       input.classList.add('is-invalid');
+//       alert.classList.remove('d-none');
+//       return false
+//     }
+//   });
+// }
+
+// validateInput(proName, nameRegex, nameAlert);
+// validateInput(category, categoryRegex, categoryAlert);
+// validateInput(price, priceRegex, priceAlert);
+
+// Start Generic Validation Function
+function validateInput(input, regex, alert) {
+  // input.addEventListener("keyup", function(){
+  if (regex.test(input.value)) {
+    input.classList.remove('is-invalid');
+    input.classList.add('is-valid');
+    alert.classList.add('d-none');
+    return true;
+  }
+  else {
+    input.classList.remove('is-valid');
+    input.classList.add('is-invalid');
+    alert.classList.remove('d-none');
+    return false
+  }
+  // });
+}
+
+let nameAlert = document.getElementById('nameAlert');
+let nameRegex = /^[A-Z][a-z 0-9]{1,15}$/;
+
+let categoryAlert = document.getElementById('categoryAlert');
+let categoryRegex = /^[A-Z][a-z 0-9]{1,10}$/;
+
+let priceAlert = document.getElementById('priceAlert');
+let priceRegex = /^([1-9][0-9])[0-9]{0,3}$/;
+
+proName.addEventListener("keyup", function () {
+  validateInput(proName, nameRegex, nameAlert);
+})
+category.addEventListener("keyup", function () {
+  validateInput(category, categoryRegex, categoryAlert);
+})
+price.addEventListener("keyup", function () {
+  validateInput(price, priceRegex, priceAlert);
+})
+// End Generic Validation Function
+
+
+
+
+
 // Start Update Form
 let form = document.getElementById('updateForm');
 let closeBtn = document.getElementById('closeBtn');
@@ -155,10 +295,10 @@ function updateProductFloat(index) {
     productList[index].category = upCategory.value;
     productList[index].price = upPrice.value;
     productList[index].desc = upDesc.value;
-      // validate not empty inputs
-  if (upName.value != '' & upCategory.value != '' & (upPrice.value != '' || upPrice.value != 0)) {
-    localStorage.setItem('productData', JSON.stringify(productList)); // update or add key and it's value
-    displayProducts();
+    // validate not empty inputs
+    if (upName.value != '' & upCategory.value != '' & (upPrice.value != '' || upPrice.value != 0)) {
+      localStorage.setItem('productData', JSON.stringify(productList)); // update or add key and it's value
+      displayProducts();
     }
 
   }
@@ -176,7 +316,7 @@ var superToggle = function (element, class0, class1) {
   element.classList.toggle(class1);
 }
 
-// Start Dark Mode
+// Start Dark Mode  
 
 let darkLight = document.getElementById('toggle');
 let slider = document.getElementById('slider');
@@ -193,7 +333,7 @@ darkLight.addEventListener("click", function () {
   superToggle(theBody, 'bg-dark', 'text-light');
   superToggle(theTable, 'table-light', 'table-dark');
   superToggle(updateForm, 'bg-light', 'bg-dark');
-  
+
   for (let i = 0; i < inputsDark.length; i++) {
     superToggle(inputsDark[i], 'form-control', 'form-control-dark');
   }
@@ -201,6 +341,9 @@ darkLight.addEventListener("click", function () {
   for (let i = 0; i < textAreas.length; i++) {
     superToggle(textAreas[i], 'form-control', 'form-control-dark');
   }
-  
+
 });
 // End Dark Mode
+
+
+let crudForm = document.getElementById('crudForm');
